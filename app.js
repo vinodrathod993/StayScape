@@ -86,7 +86,9 @@ app.use("/listings/:id/reviews", reviewRouter);
 app.use("/", userRouter);
 // MongoDB connection
 
-
+app.get("/", (req, res) => {
+    res.redirect("/listings");
+});
 
 
 // Root route
