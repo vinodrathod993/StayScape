@@ -41,14 +41,16 @@ module.exports.validateListing = (req, res, next) => {
 
     next();
 };
-module.exports.validatereview=(req,res,next)=>{
-    let {error}=reviewSchema.validate(req.body);
-    if(error){
-        throw new ExpressError(400,result.error);
-    }else{
+module.exports.validatereview = (req, res, next) => {
+    let { error } = reviewSchema.validate(req.body);
+
+    if (error) {
+        let message = error.details.map((el) => el.message).join(", ");
+        throw new ExpressError(400, message);
+    } else {
         next();
     }
-}
+};
 module.exports.isReviewAuthor=async (req,res,next)=>{
     let {id,reviewId}=req.params;
     let review=await Review.findById(reviewId);
