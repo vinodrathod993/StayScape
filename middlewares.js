@@ -42,7 +42,7 @@ module.exports.validateListing = (req, res, next) => {
     next();
 };
 module.exports.validatereview = (req, res, next) => {
-    let { error } = reviewSchema.validate(req.body);
+    let { error } = reviewSchema.validate(req.body.review);
 
     if (error) {
         let message = error.details.map((el) => el.message).join(", ");
