@@ -1,6 +1,6 @@
 require("dotenv").config();
-const dns = require("dns");
-dns.setServers(["8.8.8.8", "8.8.4.4"]);
+// const dns = require("dns");
+// dns.setServers(["8.8.8.8", "8.8.4.4"]);
 const express = require("express");
 const app = express();
 const port = 8080;
@@ -24,6 +24,7 @@ app.engine("ejs", ejsmate);
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "/public")));
 let dburl = process.env.mongose_x;
+console.log("Mongo URL exists:", !!dburl);
 async function main() {
     await mongoose.connect(dburl);
 }
@@ -42,7 +43,7 @@ const store=MongoStore.create({
     },
     touchAfter:24*3600,
 });
-store.on("error",()=>{
+store.on("error",(error)=>{
     console.log("error in the mongose session store",error);
 })
 
